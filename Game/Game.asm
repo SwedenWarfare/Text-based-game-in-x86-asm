@@ -180,12 +180,7 @@ OpenFDoor:
 	cmp eax, 2
 	je CheckFDoor
 	jmp OpenFDoor
-KeepExploring:
-	call Clrscr
-	mov eax, 0
-	mWriteLn "You decide to keep exploring"
-	mWriteLn "After a while you find a road "
-	exit
+
 InsideHouse:
 	call Clrscr
 	mov eax, 0
@@ -211,6 +206,24 @@ CheckLight:
 	cmp eax,1
 	je InsideHouse
 	jmp CheckLight
+KeepExploring:
+	call Clrscr
+	mov eax, 0
+	mWriteLn "You decide to keep exploring"
+	mWriteLn "After a while you find a road"
+	mWriteLn "Do you want to"
+	mWriteLn "1: Follow it"
+	mWriteLn "2: Go back"
+	call ReadInt
+	cmp eax,1
+	je FollowRoad
+	cmp eax,2
+	je Explore
+	jmp KeepExploring
+FollowRoad:
+	call Clrscr
+	mov eax, 0
+
 Credits:
 	call Clrscr
 	mov eax, 0

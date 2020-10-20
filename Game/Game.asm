@@ -23,7 +23,7 @@ StartOfProg:
 	cmp eax, 3
 	je ExitProg
 	cmp eax,4
-	je InsideHouse
+	je KeepExploring
 	jmp StartOfProg
 
 ExitProg:
@@ -180,7 +180,6 @@ OpenFDoor:
 	cmp eax, 2
 	je CheckFDoor
 	jmp OpenFDoor
-
 InsideHouse:
 	call Clrscr
 	mov eax, 0
@@ -223,7 +222,15 @@ KeepExploring:
 FollowRoad:
 	call Clrscr
 	mov eax, 0
-
+	mWriteLn "You decide to follow the road"
+	exit
+NotLost:
+	call Clrscr
+	mov eax,0
+	mov ebx,0
+	mWriteLn "You found your way to what looks like"
+	mWriteLn "A crossroad"
+	exit
 Credits:
 	call Clrscr
 	mov eax, 0
@@ -233,7 +240,7 @@ Credits:
 	mWriteLn "Using Irvine32 library"
 	mWriteLn "and Macros.inc"
 	mWriteLn "Started on: 5 oct 2020"
-	mWriteLn "Lines of code: 229"
+	mWriteLn "Lines of code: 250"
 	mWriteLn "------1: Go Back------"
 	call ReadInt
 	cmp eax,1

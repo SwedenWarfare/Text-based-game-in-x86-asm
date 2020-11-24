@@ -7,6 +7,8 @@ INCLUDE Macros.inc
 ; jl = jump if less
 .code
 main PROC  
+
+ 
 	jmp startOfProg
 startOfProg:
 	call Clrscr 
@@ -222,7 +224,6 @@ keepExploring:
 	cmp eax,2
 	je Explore
 	jmp keepExploring
-
 followRoad:
 	call Clrscr
 	mov eax, 0
@@ -236,7 +237,6 @@ followRoad:
 	cmp eax, 2
 	je keepExploring
 	jmp followRoad
-	
 crossroad:
 	call Clrscr
 	mov eax,0
@@ -255,17 +255,19 @@ crossroad:
 	cmp eax, 3
 	je followRoad
 	jmp crossroad
-
-east:
+east: ;New Stuff
 	call Clrscr
 	mov eax,0
 	mWriteLn "You decide to head east"
+	mWriteLn ""
+	call ReadInt
 	exit
 west: 
-	ll Clrscr
+	call Clrscr
 	mov eax,0
 	mWriteLn "You decide to head west"
 	exit
+;End of new stuff
 
 credits:
 	call Clrscr

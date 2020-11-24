@@ -249,11 +249,24 @@ crossroad:
 	mWriteLn "3: Go back"
 	call ReadInt
 	cmp eax, 1
-	exit
+	je east
+	cmp eax, 2
+	je west
+	cmp eax, 3
+	je followRoad
+	jmp crossroad
+
 east:
-	
+	call Clrscr
+	mov eax,0
+	mWriteLn "You decide to head east"
+	exit
 west: 
-	
+	ll Clrscr
+	mov eax,0
+	mWriteLn "You decide to head west"
+	exit
+
 credits:
 	call Clrscr
 	mov eax, 0

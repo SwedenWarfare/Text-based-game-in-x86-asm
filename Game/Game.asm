@@ -255,18 +255,41 @@ crossroad:
 	cmp eax, 3
 	je followRoad
 	jmp crossroad
-east: ;New Stuff
+;New Stuff
+east: 
 	call Clrscr
 	mov eax,0
 	mWriteLn "You decide to head east"
-	mWriteLn ""
-	call ReadInt
+	mWriteLn "After you have walked for a bit you decide to rest"
+	mWriteLn "Do you want to "
+	mWriteLn "1: Look around"
+	mWriteLn "2: Continue"
+	mWriteLn "3: Go back"
+	call ReadInt 
+	cmp eax, 1
+	je lookAround
+	cmp eax, 2
+	je continueEast
+	cmp eax, 3
+	je crossroad
+	jmp east
+lookAround:
+	call Clrscr
+	mov eax, 0
+	mWriteLn "You decided to look around"
+	exit
+continueEast:
+	call Clrscr
+	mov eax, 0
+	mWriteLn "You decided to continue going east"
 	exit
 west: 
 	call Clrscr
 	mov eax,0
 	mWriteLn "You decide to head west"
 	exit
+
+
 ;End of new stuff
 
 credits:
@@ -278,7 +301,7 @@ credits:
 	mWriteLn "Using Irvine32 library"
 	mWriteLn "and Macros.inc"
 	mWriteLn "Started on: 5 oct 2020"
-	mWriteLn "Lines of code: 250"
+	mWriteLn "Lines of code: 289"
 	mWriteLn "------1: Go Back------"
 	call ReadInt
 	cmp eax,1

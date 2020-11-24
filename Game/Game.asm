@@ -261,7 +261,7 @@ east:
 	mov eax,0
 	mWriteLn "You decide to head east"
 	mWriteLn "After you have walked for a bit you decide to rest"
-	mWriteLn "Do you want to "
+	mWriteLn "Do you want to"
 	mWriteLn "1: Look around"
 	mWriteLn "2: Continue"
 	mWriteLn "3: Go back"
@@ -277,6 +277,21 @@ lookAround:
 	call Clrscr
 	mov eax, 0
 	mWriteLn "You decided to look around"
+	mWriteLn "You think you saw some light"
+	mWriteLn "Do you want to:"
+	mWriteLn "1: investigate"
+	mWriteLn "2: Go back"
+	call ReadInt
+	cmp eax, 1
+	je investigate
+	cmp eax, 2
+	je east
+	jmp lookAround
+investigate:
+	call Clrscr
+	mov eax, 0
+	mWriteLn "You decide to investigate"
+	
 	exit
 continueEast:
 	call Clrscr

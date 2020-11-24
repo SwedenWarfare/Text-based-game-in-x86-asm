@@ -6,30 +6,32 @@ INCLUDE Macros.inc
 ; jg = jump if greater
 ; jl = jump if less
 .code
-main PROC
-	jmp StartOfProg
-StartOfProg:
-	call Clrscr
-	mov bl, 0
+main PROC  
+	jmp startOfProg
+startOfProg:
+	call Clrscr 
+	 mov bl, 0
 	mWriteLn "Do you want to"
 	mWriteLn "1: Start"
 	mWriteLn "2: Credits"
 	mWriteLn "3: exit"
 	call ReadInt 
 	cmp eax, 1
-	je Start
+	je start
 	cmp eax, 2
-	je Credits
+	je credits
 	cmp eax, 3
-	je ExitProg
+	je exitProg
 	cmp eax,4
-	je KeepExploring
-	jmp StartOfProg
+	je keepExploring
+	cmp eax,5
+	je takeLRoomKey
+	jmp startOfProg
 
-ExitProg:
+exitProg:
 	mWriteLn "Ok exiting"
 	exit
-Start:
+start:
 	call Clrscr 
 	mov eax, 0
 	mWriteLn "You stand in a hallway do you want to go"
@@ -37,11 +39,11 @@ Start:
 	mWriteLn "2: Right"
 	call ReadInt 
 	cmp eax,1
-	je Left 
+	je left 
 	cmp eax,2
-	je Right 
-	jmp Start
-Right:
+	je right 
+	jmp start
+right:
 	call Clrscr
 	mov eax, 0
 	mWriteLn "You decided to go right"
@@ -50,11 +52,11 @@ Right:
 	mWriteLn "2: Go back"
 	call ReadInt
 	cmp eax, 1
-	je HasKey
+	je hasKey
 	cmp eax, 2
-	je Start
-	jmp Right
-Left:
+	je start
+	jmp right
+left:
 	call Clrscr
 	mov eax, 0
 	mWriteLn "You decided to go left"
@@ -63,11 +65,11 @@ Left:
 	mWriteLn "2: Go back"
 	call ReadInt
 	cmp eax, 1
-	je OpenLDoor
+	je openLDoor
 	cmp eax, 2
-	je Start
-	jmp Left
-HasKey:
+	je start
+	jmp left
+hasKey:
 	call Clrscr
 	cmp bl, 1
 	je OpenRDoor
@@ -75,9 +77,9 @@ HasKey:
 	mWriteLn "1: Go back"
 	call ReadInt
 	cmp eax, 1
-	je Right
-	jmp HasKey
-OpenLDoor:
+	je right
+	jmp hasKey
+openLDoor:
 	call Clrscr
 	mov eax, 0
 	mWriteLn "You opened the door and went inside"
@@ -86,11 +88,11 @@ OpenLDoor:
 	mWriteLn "2: Go back"
 	call ReadInt
 	cmp eax, 1
-	je SearchLRoom
+	je searchLRoom
 	cmp eax, 2
-	je Left
-	jmp OpenLDoor
-SearchLRoom:
+	je left
+	jmp openLDoor
+searchLRoom:
 	call Clrscr
 	mov eax, 0
 	mWriteLn "You searched the room and found a key"
@@ -99,21 +101,22 @@ SearchLRoom:
 	mWriteLn "2: Go back"	
 	call ReadInt
 	cmp eax, 1
-	je TakeLRoomKey
+	je takeLRoomKey
 	cmp eax, 2
-	je OpenLDoor
-	jmp SearchLRoom
-TakeLRoomKey:
+	je openLDoor
+	jmp searchLRoom
+takeLRoomKey:
 	call Clrscr
 	mov bl, 1
+	
 	mWriteLn "You decide to take the key"
 	mWriteLn "Do you want to"
 	mWriteLn "1: Go back"
 	call ReadInt
 	cmp eax, 1
-	je Start
-	jmp TakeLRoomKey
-OpenRDoor:
+	je start
+	jmp takeLRoomKey
+openRDoor:
 	call Clrscr
 	mov eax, 0
 	mWriteLn "You decided to open it and it lead outside"
@@ -122,11 +125,11 @@ OpenRDoor:
 	mWriteLn "2: Go back inside"
 	call ReadInt 
 	cmp eax, 1
-	je Explore
+	je explore
 	cmp eax, 2
-	je Right
-	jmp OpenRDoor
-Explore:
+	je right
+	jmp openRDoor
+explore:
 	call Clrscr
 	mov eax, 0
 	mWriteLn "You decided to explore"
@@ -136,11 +139,11 @@ Explore:
 	mWriteLn "2: keep on exploring"
 	call ReadInt
 	cmp eax, 1
-	je ExploreHouse
+	je exploreHouse
 	cmp eax, 2
-	je KeepExploring
-	jmp Explore
-ExploreHouse:
+	je keepExploring
+	jmp explore
+exploreHouse:
 	call Clrscr
 	mov eax, 0
 	mWriteLn "You decide to explore it"
@@ -150,11 +153,11 @@ ExploreHouse:
 	mWriteLn "2: Go back"
 	call ReadInt
 	cmp eax, 1
-	je CheckFDoor
+	je checkFDoor
 	cmp eax, 2
-	je Explore
-	jmp ExploreHouse
-CheckFDoor:
+	je explore
+	jmp exploreHouse
+checkFDoor:
 	call Clrscr
 	mov eax, 0
 	mWriteLn "You check the front door"
@@ -163,11 +166,11 @@ CheckFDoor:
 	mWriteLn "2: Go back"
 	call ReadInt
 	cmp eax, 1
-	je OpenFDoor
+	je openFDoor
 	cmp eax, 2
-	je ExploreHouse
-	jmp CheckFDoor
-OpenFDoor:
+	je exploreHouse
+	jmp checkFDoor
+openFDoor:
 	call Clrscr
 	mov eax, 0
 	mWriteLn "You decide to try opening it"
@@ -176,11 +179,11 @@ OpenFDoor:
 	mWriteLn "2: Go back"
 	call ReadInt
 	cmp eax,1
-	je InsideHouse
+	je insideHouse
 	cmp eax, 2
-	je CheckFDoor
-	jmp OpenFDoor
-InsideHouse:
+	je checkFDoor
+	jmp openFDoor
+insideHouse:
 	call Clrscr
 	mov eax, 0
 	mWriteLn "You decide to go inside"
@@ -190,11 +193,11 @@ InsideHouse:
 	mWriteLn "2: Go back"
 	call ReadInt
 	cmp eax,1
-	je CheckLight
+	je checkLight
 	cmp eax,2
-	je OpenFDoor
-	jmp InsideHouse
-CheckLight:
+	je openFDoor
+	jmp insideHouse
+checkLight:
 	mov eax,0
 	call Clrscr
 	mWriteLn "You walk towards the light"
@@ -203,9 +206,9 @@ CheckLight:
 	mWriteLn "1: Go back"
 	call ReadInt 
 	cmp eax,1
-	je InsideHouse
-	jmp CheckLight
-KeepExploring:
+	je insideHouse
+	jmp checkLight
+keepExploring:
 	call Clrscr
 	mov eax, 0
 	mWriteLn "You decide to keep exploring"
@@ -215,23 +218,43 @@ KeepExploring:
 	mWriteLn "2: Go back"
 	call ReadInt
 	cmp eax,1
-	je FollowRoad
+	je followRoad
 	cmp eax,2
 	je Explore
-	jmp KeepExploring
-FollowRoad:
+	jmp keepExploring
+
+followRoad:
 	call Clrscr
 	mov eax, 0
 	mWriteLn "You decide to follow the road"
-	exit
-NotLost:
+	mWriteLn "Do you want to "
+	mWriteLn "1: Continue"
+	mWriteLn "2: Go back"
+	call ReadInt
+	cmp eax, 1
+	je crossroad
+	cmp eax, 2
+	je keepExploring
+	jmp followRoad
+	
+crossroad:
 	call Clrscr
 	mov eax,0
 	mov ebx,0
 	mWriteLn "You found your way to what looks like"
 	mWriteLn "A crossroad"
+	mWriteLn "Do you want to go"
+	mWriteLn "1: East"
+	mWriteLn "2: West"
+	mWriteLn "3: Go back"
+	call ReadInt
+	cmp eax, 1
 	exit
-Credits:
+east:
+	
+west: 
+	
+credits:
 	call Clrscr
 	mov eax, 0
 	mWriteLn "----------------------"
@@ -244,7 +267,7 @@ Credits:
 	mWriteLn "------1: Go Back------"
 	call ReadInt
 	cmp eax,1
-	je StartOfProg
+	je startOfProg
 	jmp Credits
 main ENDP
 END main

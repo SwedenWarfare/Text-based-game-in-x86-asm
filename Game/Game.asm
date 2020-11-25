@@ -255,7 +255,7 @@ crossroad:
 	cmp eax, 3
 	je followRoad
 	jmp crossroad
-;New Stuff
+
 east: 
 	call Clrscr
 	mov eax,0
@@ -291,8 +291,42 @@ investigate:
 	call Clrscr
 	mov eax, 0
 	mWriteLn "You decide to investigate"
-	
-	exit
+	mWriteLn "You see that is a small fire"
+	mWriteLn "Do you want to:"
+	mWriteLn "1: Take a closer look"
+	mWriteLn "2: Go back"
+	call ReadInt
+	cmp eax, 1
+	je closerLook
+	cmp eax, 2
+	je lookAround
+	jmp investigate
+
+closerLook:
+	call Clrscr
+	mov eax,0
+	mWriteLn "You decide to take a closer look"
+	mWriteLn "You see that there is something"
+	mWriteLn "On the ground"
+	mWriteLn "1: take it"
+	mWriteLn "2: Go back"
+	call ReadInt 
+	cmp eax,1
+	je takeMoney
+	cmp eax, 2
+	je investigate
+	jmp closerLook
+takeMoney:
+	call Clrscr
+	mov edx,0
+	mov bl, 10
+	mWriteLn "You found 10 gold"
+	call DumpRegs
+	mWriteLn "1: Go back"
+	call ReadInt 
+	cmp eax, 1
+	je investigate
+	jmp takeMoney
 continueEast:
 	call Clrscr
 	mov eax, 0
@@ -303,10 +337,6 @@ west:
 	mov eax,0
 	mWriteLn "You decide to head west"
 	exit
-
-
-;End of new stuff
-
 credits:
 	call Clrscr
 	mov eax, 0
